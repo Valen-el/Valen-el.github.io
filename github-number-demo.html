@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GitHub Number Formatter</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; padding: 20px; }
+    .github-number { font-variant-numeric: tabular-nums; color: #24292e; }
+  </style>
+</head>
+<body>
+  <h1>Contoh Format Angka ala GitHub</h1>
+  <p>Followers: <span class="github-number" data-value="1500"></span></p>
+  <p>Stars: <span class="github-number" data-value="2300000"></span></p>
+
+  <script>
+    function formatLikeGitHub(num) {
+      if (num < 1000) return num.toString();
+      const units = ["k", "M", "B", "T"];
+      const exp = Math.floor(Math.log10(num) / 3);
+      const value = (num / Math.pow(1000, exp)).toFixed(1);
+      return value.replace(/\.0$/, "") + units[exp - 1];
+    }
+
+    document.querySelectorAll('.github-number').forEach(el => {
+      const num = parseInt(el.getAttribute('data-value'));
+      el.textContent = formatLikeGitHub(num);
+    });
+  </script>
+</body>
+</html>
