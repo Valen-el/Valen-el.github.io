@@ -1,0 +1,78 @@
+<html>
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-purple-600">
+    <div class="w-full max-w-2xl bg-white shadow-lg rounded-lg p-6 relative">
+        <div class="flex justify-between mb-6">
+            <div class="flex space-x-4">
+                <div class="relative">
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="toggleDropdown('fileDropdown')">File</button>
+                    <div id="fileDropdown" class="hidden absolute bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                        <button class="block px-4 py-2 w-full text-left hover:bg-gray-100" onclick="alert('Save clicked')">Save</button>
+                        <button class="block px-4 py-2 w-full text-left hover:bg-gray-100" onclick="alert('Save As clicked')">Save As</button>
+                    </div>
+                </div>
+                <div class="relative">
+                    <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="toggleDropdown('editDropdown')">Edit</button>
+                    <div id="editDropdown" class="hidden absolute bg-white border border-gray-300 mt-1 rounded shadow-lg">
+                        <button class="block px-4 py-2 w-full text-left hover:bg-gray-100" onclick="alert('Copy clicked')">Copy</button>
+                        <button class="block px-4 py-2 w-full text-left hover:bg-gray-100" onclick="alert('Paste clicked')">Paste</button>
+                    </div>
+                </div>
+                <button class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" onclick="validateInput()">Run</button>
+                <button class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600" onclick="handleAboutUsClick()">About us</button>
+            </div>
+        </div>
+        <div class="text-center mb-6">
+            <label for="inputString" class="block mb-2 text-lg font-semibold text-gray-700">Input string:</label>
+            <input id="inputString" type="text" class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        </div>
+        <div class="text-center">
+            <p class="text-lg font-semibold text-gray-700">Message:</p>
+            <p id="message" class="mt-2 text-lg text-gray-800">Yes, it is a number/No, it is not a number</p>
+        </div>
+    </div>
+
+    <script>
+        function validateInput() {
+            const input = document.getElementById('inputString').value;
+            const messageElement = document.getElementById('message');
+            const scientificNumberPattern = /^[+-]?\d+(\.\d+)?([eE][+-]?\d+)?$/;
+
+            if (scientificNumberPattern.test(input)) {
+                messageElement.textContent = "Yes, it is a number";
+                messageElement.classList.remove('text-red-500');
+                messageElement.classList.add('text-green-500');
+            } else {
+                messageElement.textContent = "No, it is not a number";
+                messageElement.classList.remove('text-green-500');
+                messageElement.classList.add('text-red-500');
+            }
+        }
+
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.classList.toggle('hidden');
+        }
+
+        function handleAboutUsClick() {
+            alert("Nama: Valen Elsando Wattilete\nNIM: 231011060065");
+        }
+
+        // Close dropdowns if clicked outside
+        window.onclick = function(event) {
+            if (!event.target.matches('button')) {
+                const dropdowns = document.getElementsByClassName('absolute');
+                for (let i = 0; i < dropdowns.length; i++) {
+                    const openDropdown = dropdowns[i];
+                    if (!openDropdown.classList.contains('hidden')) {
+                        openDropdown.classList.add('hidden');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
